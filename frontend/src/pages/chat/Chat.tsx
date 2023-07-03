@@ -247,7 +247,7 @@ const Chat = () => {
                                 >
                                 <BroomRegular
                                     className={styles.clearChatBroom}
-                                    style={{ background: isLoading || answers.length === 0 ? "#BDBDBD" : "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)", 
+                                    style={{ background: isLoading || answers.length === 0 ? "#BDBDBD" : "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #ED2E2C 33.63%,#ea4444 70.31%, #f2a98e 100%)", 
                                             cursor: isLoading || answers.length === 0 ? "" : "pointer"}}
                                     aria-hidden="true"
                                 />
