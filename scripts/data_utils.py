@@ -4,6 +4,8 @@ import html
 import json
 import os
 import re
+import uuid
+import traceback
 from abc import ABC, abstractmethod
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
@@ -393,12 +395,10 @@ def extract_pdf_content(file_path, form_recognizer_client, use_layout=False):
                     role = roles_start[position]
                     if role in PDF_HEADERS:
                         page_text += f"<{PDF_HEADERS[role]}>"
-                    page_text += f"<{PDF_HEADERS[role]}>"
                 if position in roles_end.keys():
                     role = roles_end[position]
                     if role in PDF_HEADERS:
                         page_text += f"</{PDF_HEADERS[role]}>"
-                    page_text += f"</{PDF_HEADERS[role]}>"
                 
                 page_text += form_recognizer_results.content[page_offset + idx]
                 
@@ -577,6 +577,10 @@ def chunk_file(
         if form_recognizer_client is None:
             raise UnsupportedFormatError("form_recognizer_client is required for pdf files")
         content = extract_pdf_content(file_path, form_recognizer_client, use_layout=use_layout)
+        guid = str(uuid.uuid4())
+        file = open("C:\\tmp\\out\\" + guid + ".txt", "w", encoding="utf-8")
+        a = file.write(content)
+        file.close()
         cracked_pdf = True
     else:
         with open(file_path, "r", encoding="utf8") as f:
@@ -637,6 +641,7 @@ def process_file(
         if not ignore_errors:
             raise
         print(f"File ({file_path}) failed with ", e)
+        print(traceback.format_exc())
         is_error = True
         result =None
     return result, is_error
